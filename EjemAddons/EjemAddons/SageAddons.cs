@@ -314,6 +314,9 @@ namespace sage.addons.EjemAddons
         /// <param name="sender"></param>
         private void Stocks__OnUpdateStocks(IUpdateStocks sender)
         {
+            if (sender == null)
+                return;
+
             if (sender is sage.ew.stocks.Update_Stocks updStock) //Que sea la clase que necesitamos
             {
                 //Hay que afinar un poco la operación pues entra por varios motivos.
