@@ -5,6 +5,8 @@ using sage.ew.interficies;
 using Sage.ES.S50.Addons;
 using sage.addons.EjemAddons.Negocio.Clases;
 using sage.addons.EjemAddons.Visual.BindForm;
+using System.Data.SqlClient;
+using System.Windows.Forms;
 
 /// <summary>
 /// Este es el espacio de nombres de su módulo.
@@ -314,7 +316,21 @@ namespace sage.addons.EjemAddons
         /// <param name="sender"></param>
         private void Stocks__OnUpdateStocks(IUpdateStocks sender)
         {
-            
+            if (sender == null)
+                return;
+
+            if (sender is sage.ew.stocks.Update_Stocks updStock) //Que sea la clase que necesitamos
+            {
+                //Hay que afinar un poco la operación pues entra por varios motivos.
+                //En nuestro caso nos interesa el cambio de unidades.
+                //Controlamos que el valor antiguo no sea nulo para no entrar durante la inicialización de null a 0
+                if (updStock._Unidades._Changed() && updStock._Unidades._OldVal != null)
+                {
+                    //MessageBox.Show($"Actualizando stocks artículo:{updStock._Articulo._NewVal} " +
+                    //                $"en almacen:{updStock._Almacen._NewVal} " + Environment.NewLine +
+                    //                $"Pasando de {updStock._Unidades._OldVal} unidades a {updStock._Unidades._NewVal}", "OnUpdateStocks");
+                }
+            }
         }
 
         #endregion MÉTODOS
